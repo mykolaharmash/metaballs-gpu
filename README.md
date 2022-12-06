@@ -2,6 +2,10 @@
 
 [**Live Demo**](https://mykolaharmash.github.io/metaballs-gpu/)
 
+
+https://user-images.githubusercontent.com/793851/205881866-3b21c95b-7f48-4b40-a5b0-15a720bedaab.mp4
+
+
 ### Run Locally
 
 ```bash
