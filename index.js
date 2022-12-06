@@ -65,37 +65,6 @@ function setGeometry(gl, program) {
 	);
 }
 
-function setColor(gl, program) {
-	const colors = [
-		1, 0, 0, 1,
-		0, 1, 0, 1,
-		0, 0, 1, 1,
-		0, 0, 1, 1,
-		0, 1, 0, 1,
-		1, 0, 0, 1,
-	];
-	const colorAttributeLocation = gl.getAttribLocation(program, "a_color");
-	const colorBuffer = gl.createBuffer();
-	const size = 4;
-	const type = gl.FLOAT;
-	const normalize = false;
-	const stride = 0;
-	const offset = 0;
-
-	gl.enableVertexAttribArray(colorAttributeLocation);
-	gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
-
-	gl.vertexAttribPointer(
-		colorAttributeLocation,
-		size,
-		type,
-		normalize,
-		stride,
-		offset
-	);
-}
-
 function moveCircle(currentCircle, speed) {
 	const [x, y, r] = currentCircle
 	let [dx, dy] = speed
@@ -156,8 +125,8 @@ function drawScene(gl) {
 }
 
 async function main() {
-	const vertexSource = await (await fetch('/vertex.glsl')).text()
-	const fragmentSource = (await (await fetch('/fragment.glsl')).text()).replace('__CIRCLE_COUNT__', CIRCLE_COUNT)
+	const vertexSource = await (await fetch('./vertex.glsl')).text()
+	const fragmentSource = (await (await fetch('./fragment.glsl')).text()).replace('__CIRCLE_COUNT__', CIRCLE_COUNT)
 
 	const canvas = document.querySelector("#canvas");
 	const gl = canvas.getContext("webgl");
@@ -177,7 +146,6 @@ async function main() {
 	gl.useProgram(program)
 
 	setGeometry(gl, program)
-	// setColor(gl, program)
 
 	function render() {
 		[circleList, speedList] = moveCircleList(circleList, speedList)
